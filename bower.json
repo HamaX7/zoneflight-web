@@ -1,0 +1,25 @@
+{
+  "name": "zoneflight",
+  "version": "0.0.1",
+  "description": "ZoneFlight is a website that helps people looking for flights from bigger zones than usual",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZoneFlight"
+  },
+  "authors": "Marc Alzetto, Stacie Kith, Pierre Sephia, Guillaume Lepoutre, Alexandre Verchere",
+  "license": "unknown",
+  "dependencies": {
+    "leaflet": "0.7.x",
+    "leaflet-draw": "git://github.com/michaelguild13/Leaflet.draw.git#master"
+  },
+  "ignore": [
+    ".*",
+    "LICENSE",
+    "*.txt",
+    "*.json",
+    ".gitignore",
+    "*.html",
+    "*.md",
+    "bower_components"
+  ]
+}

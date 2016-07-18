@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	<title>Zoneflight</title>
+
+	<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+	<link rel="stylesheet" href="bower_components/leaflet-draw/dist/leaflet.draw.css" />
+
+	<script src="bower_components/leaflet/dist/leaflet.js"></script>
+	<script src="bower_components/leaflet-draw/dist/leaflet.draw-src.js"></script>
+</head>
+<body>
+	<div id="map" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+	
+	<script>
+	
+		var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			osm = L.tileLayer(osmUrl, {maxZoom: 13, minZoom: 2, attribution: osmAttrib}),
+			map = new L.Map('map', {layers: [osm], center: new L.LatLng(48.858093, 2.294694), zoom: 3 });
+
+		var drawnItems = new L.FeatureGroup();
+		map.addLayer(drawnItems);
+
+		var drawControl = new L.Control.Draw({
+			draw: {
+				position: 'topleft',
+				polyline: false,
+				polygon: {
+					title:'polygon departure',
+					allowIntersection: false,
+					drawError: {
+						color: '#b00b00',
+						timeout: 1000
+					},
+					shapeOptions: {
+						color: '#01E573'
+					},
+					showArea: true
+				},
+				circle: {
+					shapeOptions: {
+						color: '#01E573'
+					}
+				},
+				rectangle: {
+					shapeOptions: {
+						color: '#01E573'
+					}
+				},
+				marker: false
+			},
+			edit: {
+				featureGroup: drawnItems
+			}
+		});
+
+		map.addControl(drawControl);
+
+		map.on('draw:created', function (e) {
+			var type = e.layerType,
+				layer = e.layer;
+
+			if (type === 'marker') {
+				layer.bindPopup('A popup!');
+			}
+
+			drawnItems.addLayer(layer);
+		});
+		
+	</script>
+</body>
+</html>
+
